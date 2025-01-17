@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Adoption Forms</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(adoptionforms)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Approved</th>
+                <th>Date</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="form : ${adoptionforms}">
+                <td th:text="${form.approved}"></td>
+                <td th:text="${form.date}"></td>
+                <td>
+                    <a  class="btn btn-outline-light btn-sm" th:href="@{'/adoption-form/' + ${form.adoptionform_id}}">Details</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${ #lists.isEmpty(adoptionforms)}">
+        No Forms found!
+    </div>
+    <a href="/adoption-form/new" class="btn btn-primary" role="button">Create new Adoption Form</a>
+</div>
+</body>
+</html>

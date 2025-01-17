@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Shelter</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div th:if="${shelter}">
+
+    <div class="card" style="width:400px">
+      <img class="card-img-top" th:src="@{/images/img_avatar1.png}" alt="Card image">
+      <div class="card-body">
+        <h4 class="card-title" th:text="${shelter.shelter_name}"></h4>
+        <p class="card-text" th:text="'Shelter ID is ' + ${shelter.shelter_id}"></p>
+
+        <p th:if="${shelter.shelter_address}" th:text="'Shelter address is ' + ${shelter.shelter_address}"></p>
+        <p th:if="${shelter.shelter_phone}" th:text="'Shelter phone is ' + ${shelter.shelter_phone}"></p>
+        <p th:if="${shelter.shelter_email}" th:text="'Shelter email is ' + ${shelter.shelter_email}"></p>
+
+
+
+      </div>
+    </div>
+
+  </div>
+  <div th:if="${shelter == null}">
+    No Shelter found!
+  </div>
+</div>
+</body>
+</html>

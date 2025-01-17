@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>adoptionform</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div th:if="${adoptionform}">
+
+    <div class="card" style="width:400px">
+      <img class="card-img-top" th:src="@{/images/img_avatar1.png}" alt="Card image">
+      <div class="card-body">
+        <p class="card-text" th:text="'adoptionform ID is ' + ${adoptionform.adoptionform_id}"></p>
+
+        <p th:if="${adoptionform.approved}" th:text="'adoptionform address is ' + ${adoptionform.approved}"></p>
+        <p th:if="${adoptionform.date}" th:text="'adoptionform phone is ' + ${adoptionform.date}"></p>
+
+
+
+
+      </div>
+    </div>
+
+  </div>
+  <div th:if="${adoptionform == null}">
+    No adoptionform found!
+  </div>
+</div>
+</body>
+</html>

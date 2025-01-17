@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(doctors)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="doctor : ${doctors}">
+                <td th:text="${doctor.first_name}"></td>
+                <td th:text="${doctor.last_name}"></td>
+                <td th:text="${doctor.email}"></td>
+                <td>
+                    <a  class="btn btn-outline-light btn-sm" th:href="@{'/doctor/' + ${doctor.id}}">Details</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${ #lists.isEmpty(doctors)}">
+        No Students found!
+    </div>
+    <a href="/doctor/new" class="btn btn-primary" role="button">Create new Doctor</a>
+</div>
+</body>
+</html>
