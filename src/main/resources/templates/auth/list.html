@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{page_layout/layout}">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="main-content">
+  <div>
+    <h3 class="masthead-brand">Register as:</h3>
+    <nav class="nav nav-masthead justify-content-center">
+      <a class="nav-link" href="/doctor/new" data-path="/doctor/new">Doctor</a>
+      <a class="nav-link" href="/shelter/new" data-path="/shelter/new">Shelter</a>
+      <a class="nav-link" href="/register">Client</a>
+    </nav>
+  </div>
+</div>
+</body>
+</html>

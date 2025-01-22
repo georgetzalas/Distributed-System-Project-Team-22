@@ -2,6 +2,7 @@ package gr.hua.dit.ds.ds_lab_2024.entities;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 

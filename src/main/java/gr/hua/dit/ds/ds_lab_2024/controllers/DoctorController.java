@@ -5,10 +5,13 @@ import gr.hua.dit.ds.ds_lab_2024.entities.AdoptionForm;
 import gr.hua.dit.ds.ds_lab_2024.entities.Doctor;
 import gr.hua.dit.ds.ds_lab_2024.repositories.DoctorRepository;
 import gr.hua.dit.ds.ds_lab_2024.service.DoctorService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,7 +29,7 @@ public class DoctorController {
 
         this.doctorService = doctorService;
     }
-
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("")
     public String getDoctors(Model model) {
         model.addAttribute("doctors",doctorService.getDoctors());
@@ -41,12 +44,18 @@ public class DoctorController {
     }
 
     @PostMapping("/new")
-    public String createShelter(@ModelAttribute("doctor") Doctor doctor,Model model) {
-        doctorService.saveDoctor(doctor);
-        model.addAttribute("doctor", doctor);
-        return "doctor/profile";
+    public String createDoctor(@Valid @ModelAttribute("doctor") Doctor doctor, BindingResult theBindingResult, Model model) {
+        if (theBindingResult.hasErrors()) {
+            System.out.println("error");
+            theBindingResult.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
+            return "doctor/new";
+        } else {
+            doctorService.saveDoctor(doctor);
+            model.addAttribute("doctor", doctor);
+            return "doctor/profile";
+        }
     }
-
+    @Secured({"ROLE_DOCTOR","ROLE_SHELTER","ROLE_ADMIN"})
     @GetMapping("/{doctor_id}")
     public String getDoctor(@PathVariable Integer doctor_id,Model model) {
         try {
@@ -57,14 +66,14 @@ public class DoctorController {
         }
     }
 
-    @DeleteMapping("/{doctor_id}")
-    public ResponseEntity<String>  deleteDoctor(@PathVariable Integer doctor_id) {
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/{doctor_id}/delete")
+    public String  deleteDoctor(@PathVariable Integer doctor_id) {
         boolean result = doctorService.deleteDoctor(doctor_id);
         if (result) {
-            return ResponseEntity.status(HttpStatus.OK).body("shelter deleted successfully");
-        }
-        else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("shelter not found");
+            return "doctor/deleted";
+        } else {
+            return "error/error";
         }
     }
 }

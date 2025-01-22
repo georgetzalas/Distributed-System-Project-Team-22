@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Adopt-A-Pet</title>
 </head>
 <body>
 
@@ -13,9 +14,22 @@
         <h3 class="masthead-brand">Cover</h3>
         <nav class="nav nav-masthead justify-content-center">
             <a class="nav-link" href="/" data-path="/" >Home</a>
-            <a class="nav-link" href="/doctor" data-path="/doctor">Doctors</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_SHELTER')" class="nav-link" href="/doctor" data-path="/doctor">Doctors</a>
             <a class="nav-link" href="/pet" data-path="/pet">Pets</a>
             <a class="nav-link" href="/shelter" data-path="/shelter">Shelters</a>
+            <a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link" href="/users">Users</a>
+            <a sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_SHELTER')" class="nav-link" href="/meeting">Meetings</a>
+            <a sec:authorize="hasRole('ROLE_SHELTER')" class="nav-link" href="/shelter/adopt">Requests</a>
+            </a>
+            <a sec:authorize="!isAuthenticated()"  class="nav-link">
+                <a  class="nav-link" href="/login">Login</a>
+                <a  class="nav-link" href="/registerlist">Register</a>
+            </a>
+            <a sec:authorize="isAuthenticated()"  class="nav-link">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit"  class="btn btn-primary" value="Sign Out"/>
+                </form>
+            </a>
         </nav>
     </div>
 </header>

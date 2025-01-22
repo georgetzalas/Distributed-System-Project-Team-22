@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       layout:decorate="~{page_layout/layout}">
 
 <head>
@@ -21,10 +22,13 @@
             </thead>
             <tbody>
             <tr th:each="shelter : ${shelters}">
-                <td th:text="${shelter.shelter_name}"></td>
-                <td th:text="${shelter.shelter_address}"></td>
+                <td th:text="${shelter.name}"></td>
+                <td th:text="${shelter.address}"></td>
                 <td>
-                    <a  class="btn btn-outline-light btn-sm" th:href="@{'/shelter/' + ${shelter.shelter_id}}">Details</a>
+                    <a  class="btn btn-outline-light btn-sm" th:href="@{'/shelter/' + ${shelter.id}}">Details</a>
+                </td>
+                <td>
+                    <a  sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-light btn-sm" th:href="@{'/shelter/' + ${shelter.id}+ '/delete'}">Delete</a>
                 </td>
             </tr>
             </tbody>
@@ -33,7 +37,7 @@
     <div th:if="${ #lists.isEmpty(shelters)}">
         No Shelters found!
     </div>
-    <a href="/shelter/new" class="btn btn-primary" role="button">Create new Shelter</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" href="/shelter/new" class="btn btn-primary" role="button">Create new Shelter</a>
 </div>
 </body>
 </html>

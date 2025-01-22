@@ -3,13 +3,14 @@ package gr.hua.dit.ds.ds_lab_2024.entities;
 import jakarta.persistence.*;
 
 @Entity
+@Table
 public class HealthForm {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column
-    private Boolean approved;
+    private Boolean approved=false;
 
     @OneToOne(mappedBy ="healthform", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Pet pet;
@@ -21,9 +22,9 @@ public class HealthForm {
     public HealthForm() {
     }
 
-    public HealthForm(Integer id, Boolean approved, Pet pet, Doctor doctor) {
+    public HealthForm(Integer id, Pet pet, Doctor doctor) {
         this.id = id;
-        this.approved = approved;
+        this.approved = false;
         this.pet = pet;
         this.doctor = doctor;
     }

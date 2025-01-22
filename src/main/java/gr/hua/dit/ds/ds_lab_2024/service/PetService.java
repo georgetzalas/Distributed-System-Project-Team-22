@@ -1,8 +1,7 @@
 package gr.hua.dit.ds.ds_lab_2024.service;
 
-import gr.hua.dit.ds.ds_lab_2024.entities.Doctor;
-import gr.hua.dit.ds.ds_lab_2024.entities.Pet;
-import gr.hua.dit.ds.ds_lab_2024.repositories.PetRepository;
+import gr.hua.dit.ds.ds_lab_2024.entities.*;
+import gr.hua.dit.ds.ds_lab_2024.repositories.*;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +12,16 @@ import java.util.Optional;
 public class PetService {
 
     private PetRepository petRepository;
+    private ShelterRepository shelterRepository;
+    private HealthFormRepository healthFormRepository;
+    private AdoptionFormRepository adoptionFormRepository;
 
-    public PetService(PetRepository petRepository) {
 
+    public PetService(PetRepository petRepository, ShelterRepository shelterRepository, HealthFormRepository healthFormRepository, AdoptionFormRepository adoptionFormRepository) {
         this.petRepository = petRepository;
+        this.shelterRepository = shelterRepository;
+        this.healthFormRepository = healthFormRepository;
+        this.adoptionFormRepository = adoptionFormRepository;
     }
 
     @Transactional
@@ -33,8 +38,12 @@ public class PetService {
 
     @Transactional
     public void savePet(Pet pet) {
-
+        HealthForm hf = new HealthForm();
+        hf.setApproved(false);
+        healthFormRepository.save(hf);
+        pet.setHealthform(hf);
         petRepository.save(pet);
+
     }
 
     @Transactional
@@ -49,4 +58,35 @@ public class PetService {
             return false;
         }
     }
+
+    @Transactional
+    public void assignShelterToPet(Integer shelter_id,Pet pet) {
+        Shelter shelter = shelterRepository.findById(shelter_id).get();
+        pet.setShelter(shelter);
+        petRepository.save(pet);
+    }
+
+    @Transactional
+    public void assignShelterToPet(Integer shelter_id,Integer pet_id) {
+        Shelter shelter = shelterRepository.findById(shelter_id).get();
+        Pet pet = petRepository.findById(pet_id).get();
+        pet.setShelter(shelter);
+        petRepository.save(pet);
+    }
+
+    @Transactional
+    public void assignHealthFormToPet(Integer healthform_id,Pet pet) {
+        HealthForm form = healthFormRepository.findById(healthform_id).get();
+        form.setPet(pet);
+        healthFormRepository.save(form);
+    }
+
+    @Transactional
+    public void assignAdoptionFormToPet(Integer adoptionform_id,Pet pet) {
+        AdoptionForm form = adoptionFormRepository.findById(adoptionform_id).get();
+        form.setPet(pet);
+        adoptionFormRepository.save(form);
+    }
+
+
 }

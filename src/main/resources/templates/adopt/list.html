@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Adoption Requests</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+
+  <div th:if="${ not#lists.isEmpty(forms)}">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr th:each="form : ${forms}">
+
+          <td th:text="${form.getClient().getFirst_name()}"></td>
+          <td th:text="${form.getDescription()}"></td>
+          <td th:if="${form.approved}">Approved</td>
+          <td th:if="${!form.approved}" sec:authorize="hasRole('ROLE_SHELTER')">
+            <form action="#" th:action="'/shelter/adopt'"method="post">
+              <input type="hidden" name="id" th:value="${form.id}">
+              <button type="submit" class="btn btn-primary">Approve</button>
+            </form>
+          </td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div th:if="${ #lists.isEmpty(forms)}">
+    No Adoption requests found!
+  </div>
+
+</div>
+</body>
+</html>

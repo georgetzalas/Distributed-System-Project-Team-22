@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Adoption Form</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+  <div th:if="${param.error}">
+    Invalid form.
+  </div>
+  <h3>Adoption Form</h3>
+  <form th:action="@{'/pet/' + ${pet.id}+ '/adopt'}" method="post" th:object="${form}">
+    <div class="form-group row">
+      <label for="username">Write a brief description about why you want to adopt this animal</label>
+
+      <input type="text" class="form-control" th:field="*{description}" id="username"/>
+
+    </div>
+    <div><input type="submit" class="btn btn-success" value="Submit"/></div>
+  </form>
+  <div th:text="${msg}"></div>
+</div>
+
+</div>
+</body>
+</html>

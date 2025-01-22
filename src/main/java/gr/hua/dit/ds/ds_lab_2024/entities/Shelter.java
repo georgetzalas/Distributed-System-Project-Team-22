@@ -25,9 +25,6 @@ public class Shelter extends User{
     @OneToMany(mappedBy = "shelter", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<MeetingForm> meetingforms;
 
-    @OneToMany(mappedBy = "shelter", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<AdoptionForm> adoptionforms;
-
 
     public Shelter() {
     }
@@ -38,7 +35,7 @@ public class Shelter extends User{
         this.phone = phone;
         this.pets = pets;
         this.meetingforms = meetingforms;
-        this.adoptionforms = adoptionforms;
+
     }
 
     public String getName() {
@@ -81,11 +78,5 @@ public class Shelter extends User{
         this.meetingforms = meetingforms;
     }
 
-    public List<AdoptionForm> getAdoptionforms() {
-        return adoptionforms;
-    }
 
-    public void setAdoptionforms(List<AdoptionForm> adoptionforms) {
-        this.adoptionforms = adoptionforms;
-    }
 }

@@ -21,16 +21,29 @@
     <div class="form-group">
       <label for="lastName">Last Name</label>
       <input type="text" id="lastName" class="form-control" th:field="*{last_name}">
+      <span th:if="${#fields.hasErrors('last_name')}" th:errors="*{last_name}" th:errorclass="error"></span>
     </div>
 
     <div class="form-group">
       <label for="email">Email</label>
       <input type="email" id="email" class="form-control" th:field="*{email}">
+      <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></span>
     </div>
 
     <div class="form-group">
       <label for="phone">Phone</label>
-      <input type="text" id="phone" class="form-control" th:field="*{phone}">
+      <input type="number" id="phone" class="form-control" th:field="*{phone}">
+      <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" th:errorclass="error"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="username"> User Name</label>
+
+      <input type="text" class="form-control" th:field="*{username}" id="username"/>
+
+    <div class="form-group">
+      <label for="password"> Password </label>
+      <input type="password" class="form-control"  id="password" th:field="*{password}"/>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

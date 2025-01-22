@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       layout:decorate="~{page_layout/layout}">
 
 <head>
@@ -15,12 +16,14 @@
     <div class="card" style="width:400px">
       <img class="card-img-top" th:src="@{/images/img_avatar1.png}" alt="Card image">
       <div class="card-body">
-        <h4 class="card-title" th:text="${pet.pet_name}"></h4>
-        <p class="card-text" th:text="'Pet ID is ' + ${pet.pet_id}"></p>
+        <h4 class="card-title" th:text="${pet.name}"></h4>
+        <p class="card-text" th:text="'Pet ID is ' + ${pet.id}"></p>
 
-        <p th:if="${pet.pet_breed}" th:text="'Pet breed is ' + ${pet.pet_breed}"></p>
-
-
+        <p th:if="${pet.breed}" th:text="'Pet breed is ' + ${pet.breed}"></p>
+        <p th:if="${pet.healthform.getApproved()}" th:text="'Pet health is approved'"></p>
+        <p th:if="${!pet.healthform.getApproved()}" th:text="'Pet health is not approved'"></p>
+        <p><a th:if="${!pet.healthform.getApproved()}" sec:authorize="hasRole('ROLE_DOCTOR')" th:href="@{'/pet/' + ${pet.id} + '/health'}" class="btn btn-success" role="button">Approve pet's health</a></p>
+        <p><a sec:authorize="hasRole('ROLE_USER')" th:href="@{'/pet/' + ${pet.id} + '/adopt'}" class="btn btn-success" role="button">Adopt this pet!</a></p>
 
 
       </div>

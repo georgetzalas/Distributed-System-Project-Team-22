@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table
 public class AdoptionForm {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,13 +17,13 @@ public class AdoptionForm {
     @Column
     private Date date;
 
-    @OneToOne(mappedBy ="adoptionform", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Pet pet;
-
+    @Column
+    private String description;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name ="shelter_id")
-    private Shelter shelter;
+    @JoinColumn(name ="pet_id")
+    private Pet pet;
+
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name ="client_id")
@@ -31,12 +32,12 @@ public class AdoptionForm {
     public AdoptionForm() {
     }
 
-    public AdoptionForm(Integer id, Boolean approved, Date date, Pet pet, Shelter shelter, Client client) {
+    public AdoptionForm(Integer id, Boolean approved, Date date, String description, Pet pet, Client client) {
         this.id = id;
         this.approved = approved;
         this.date = date;
+        this.description = description;
         this.pet = pet;
-        this.shelter = shelter;
         this.client = client;
     }
 
@@ -72,19 +73,28 @@ public class AdoptionForm {
         this.pet = pet;
     }
 
-    public Shelter getShelter() {
-        return shelter;
-    }
-
-    public void setShelter(Shelter shelter) {
-        this.shelter = shelter;
-    }
-
-    public Client getUser() {
-        return client;
-    }
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Client getClient() {
+        return client;
     }
 }

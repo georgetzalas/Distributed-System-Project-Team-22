@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{page_layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Meetings</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div th:if="${ not#lists.isEmpty(meetings)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Shelter</th>
+                <th>Date</th>
+                <th>Approved</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="meet : ${meetings}">
+                <td th:text="${meet.getShelter().getName()}"></td>
+                <td th:text="${meet.getDate()}"></td>
+                <td sec:authorize="hasRole('ROLE_USER')" th:text="${meet.getApproved()}"></td>
+                <td th:if="${!meet.approved}" sec:authorize="hasRole('ROLE_SHELTER')"  class="btn btn-success" th:href="@{'/meeting/' + ${meet.id}+ '/approve'}">Approve</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${ #lists.isEmpty(meetings)}">
+        No Meetings found!
+    </div>
+    <a sec:authorize="hasRole('ROLE_USER')" href="/meeting/new" class="btn btn-primary" role="button">Schedule a new Meeting</a>
+</div>
+</body>
+</html>

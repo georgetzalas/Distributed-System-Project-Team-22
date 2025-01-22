@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table
 public class MeetingForm {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +15,7 @@ public class MeetingForm {
     private Boolean approved;
 
     @Column
-    private Date date;
+    private String date;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name ="client_id")
@@ -28,7 +29,7 @@ public class MeetingForm {
     public MeetingForm() {
     }
 
-    public MeetingForm(Integer id, Boolean approved, Date date, Client client, Shelter shelter) {
+    public MeetingForm(Integer id, Boolean approved, String date, Client client, Shelter shelter) {
         this.id = id;
         this.approved = approved;
         this.date = date;
@@ -52,11 +53,11 @@ public class MeetingForm {
         this.approved = approved;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

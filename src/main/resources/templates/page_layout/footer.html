@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,6 +11,13 @@
   <div class="inner">
     <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
   </div>
+    <div sec:authorize="isAuthenticated()">
+        Authenticated username:
+        <span sec:authentication="name"></span>
+        Authenticated user roles:
+        <span sec:authentication="principal.authorities"></span>
+    </div>
+
 </footer>
 </body>
 </html>
