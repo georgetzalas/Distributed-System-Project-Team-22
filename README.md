@@ -1,30 +1,13 @@
-
-
-## Clone project
-
-```bash
-git clone https://github.com/tsadimasteaching/ds-lab-2023.git
-```
-## Database
-* you can create a free postgres database on [https://render.com/](https://render.com/)
-* you can run a postgres with docker
-  ```bash
-  docker run --name ds-lab-pg --rm \
-    -e POSTGRES_PASSWORD=pass123 \
-    -e POSTGRES_USER=dbuser \
-    -e POSTGRES_DB=students \
-    -d --net=host \
-    -v pgdata:/var/lib/postgresql/data \
-    postgres:16
-  ```
-  
-## Fix database connection in application.properties
-
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/students
-spring.datasource.username=dbuser
-spring.datasource.password=pass123
-```
+##Account Info:
+#Admin
+user:admin 
+passwd:admin
+#HUAShelter
+user:shelter1
+passwd:1234
+#DrJohn
+user:drjohn
+passwd:1234
 ## Run the project
 make sure you have set correctly ``JAVA_HOME`` and ``M2_HOME`` enviromental variables
 ```bash
