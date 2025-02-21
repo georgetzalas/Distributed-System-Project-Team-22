@@ -17,3 +17,4 @@ passwd:1234
 ## Run the project
 make sure you have set correctly ``JAVA_HOME`` and ``M2_HOME`` enviromental variables
 ```bash
+You can run it the same way you would the example from the lab!
