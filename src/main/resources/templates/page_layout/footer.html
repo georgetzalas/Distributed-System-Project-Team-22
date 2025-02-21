@@ -3,14 +3,11 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Adop-A-Pet</title>
 </head>
 <body>
 
 <footer class="mastfoot mt-auto" th:fragment="header">
-  <div class="inner">
-    <p>Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-  </div>
     <div sec:authorize="isAuthenticated()">
         Authenticated username:
         <span sec:authentication="name"></span>

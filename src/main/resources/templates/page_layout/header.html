@@ -11,7 +11,7 @@
 
 <header class="masthead mb-auto" th:fragment="header">
     <div class="inner">
-        <h3 class="masthead-brand">Cover</h3>
+        <h3 class="masthead-brand">Adopt-A-Pet</h3>
         <nav class="nav nav-masthead justify-content-center">
             <a class="nav-link" href="/" data-path="/" >Home</a>
             <a sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_SHELTER')" class="nav-link" href="/doctor" data-path="/doctor">Doctors</a>
