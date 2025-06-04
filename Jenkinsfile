@@ -3,7 +3,7 @@ pipeline {
 agent any
 
 environment {
-        //DOCKER_TOKEN=credentials('docker-push-secret')
+        DOCKER_TOKEN=credentials('docker-push-secret')
         DOCKER_USER='georgetzalas'
         DOCKER_SERVER='ghcr.io'
         DOCKER_PREFIX='ghcr.io/georgetzalas/spring'
