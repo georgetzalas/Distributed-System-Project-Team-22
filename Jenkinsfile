@@ -6,7 +6,7 @@ environment {
         //DOCKER_TOKEN=credentials('docker-push-secret')
         DOCKER_USER='georgetzalas'
         DOCKER_SERVER='ghcr.io'
-        DOCKER_PREFIX='ghcr.io/georgetzalas/spring:latest'
+        DOCKER_PREFIX='ghcr.io/georgetzalas/spring'
     }
 
 
@@ -20,7 +20,7 @@ stages {
 
     stage('Test') {
         steps {
-           sh '''
+            sh '''
                 echo "Start testing"
                 ./mvnw test
             '''
@@ -32,7 +32,7 @@ stages {
                 sh '''
                     HEAD_COMMIT=$(git rev-parse --short HEAD)
                     TAG=$HEAD_COMMIT-$BUILD_ID
-                    docker build --rm -t $DOCKER_PREFIX:$TAG -t $DOCKER_PREFIX:latest -f nonroot-multistage.Dockerfile .
+                    docker build --rm -t $DOCKER_PREFIX:$TAG -t $DOCKER_PREFIX:latest -f Dockerfile .
                 '''
 
                 sh '''
