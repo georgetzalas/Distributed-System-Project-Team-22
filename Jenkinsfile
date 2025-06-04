@@ -18,6 +18,17 @@ stages {
         }
     }
 
+    stage('Create .mvn/properties') {
+        steps {
+            sh '''
+                echo "Start creating .mvn/properties"
+                ./mvnw test
+                echo "Adding distribution url"
+                echo 'distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.8/apache-maven-3.8.8-bin.zip' > .mvn/wrapper/maven-wrapper.properties
+            '''
+        }
+    }
+
     stage('Test') {
         steps {
             sh '''
